@@ -75,6 +75,7 @@ def run(args):
         return run_openconnect(
             auth_response,
             selected_profile,
+            args.executable,
             args.proxy,
             args.ac_version,
             args.openconnect_args,
@@ -183,7 +184,7 @@ def authenticate_to(host, proxy, credentials, display_mode, version):
     return Authenticator(host, proxy, credentials, version).authenticate(display_mode)
 
 
-def run_openconnect(auth_info, host, proxy, version, args):
+def run_openconnect(auth_info, host, executable, proxy, version, args):
     as_root = next(([prog] for prog in ("doas", "sudo") if shutil.which(prog)), [])
     try:
         if not as_root:
@@ -201,7 +202,7 @@ def run_openconnect(auth_info, host, proxy, version, args):
         return 20
 
     command_line = as_root + [
-        "openconnect",
+        executable,
         "--useragent",
         f"AnyConnect Linux_64 {version}",
         "--version-string",

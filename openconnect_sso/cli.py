@@ -71,6 +71,12 @@ def create_argparser():
     )
 
     parser.add_argument(
+        "--executable",
+        help="Path to openconnect executable, defaults to %(default)s",
+        default="openconnect",
+    )
+
+    parser.add_argument(
         "--browser-display-mode",
         help="Controls how the browser window is displayed. 'hidden' mode only works with saved credentials. Choices: {%(choices)s}",
         choices=["shown", "hidden"],
